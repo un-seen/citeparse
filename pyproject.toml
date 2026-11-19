@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "citeparse"
+version = "0.1.0"
+description = "Parse reference strings into CSL-JSON with a small local model, and check them against Crossref."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.9"
+dependencies = ["transformers>=4.48", "torch"]
+keywords = ["citation", "reference parsing", "bibliography", "csl-json", "bibtex", "crossref", "grobid"]
+
+[project.scripts]
+citeparse = "citeparse.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/un-seen/citeparse"
+Model = "https://huggingface.co/hedwigai/citeparse-32m"
+Benchmark = "https://huggingface.co/datasets/hedwigai/citeparse-wild-700"
