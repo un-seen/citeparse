@@ -1,6 +1,6 @@
 """citeparse refs.txt [--bibtex] [--verify]     parse one reference per line ('-' = stdin)
 citeparse check refs.txt [--json]             flag references that point to no real work
-citeparse mcp                                 run the MCP server on stdio"""
+"""
 import argparse, json, sys
 from . import Parser, verify, DEFAULT_MODEL
 
@@ -44,8 +44,10 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == "check":
         return main_check(sys.argv[2:])
     if len(sys.argv) > 1 and sys.argv[1] == "mcp":
-        from .mcp_server import main as serve
-        return serve()
+        print("citeparse no longer runs an MCP server. For agents, use the hosted hedwigai MCP:\n"
+              "  claude mcp add --transport http hedwigai https://mcp.hedwigai.com\n"
+              "then ask it to check the references in your paper.", file=sys.stderr)
+        return 1
     ap = argparse.ArgumentParser(prog="citeparse", epilog="To flag fake or wrong references: citeparse check refs.txt")
     ap.add_argument("file"); ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--verify", action="store_true", help="look each reference up on Crossref")

@@ -49,13 +49,15 @@ The command exits with status 1 when a reference is a mismatch or has an unregis
 
 ## Use it from an agent (MCP)
 
+citeparse doesn't run an MCP server of its own. Agents check references through the hosted hedwigai MCP, with nothing to install:
+
 ```bash
-claude mcp add citeparse -- uvx citeparse mcp
+claude mcp add --transport http hedwigai https://mcp.hedwigai.com
 ```
 
-Any MCP client works the same way: the command is `uvx citeparse mcp` (or `citeparse mcp` after `pip install citeparse`).
+Any client that takes a remote MCP server works with `https://mcp.hedwigai.com`. Sign in with your email when it asks, then ask your agent to "check the references in paper.tex". It looks each entry up on Crossref and OpenAlex and flags those that point to no real work. A few checks are free; after that each check is billed to your hedwigai account.
 
-The server offers two tools, `parse_references` (CSL-JSON or BibTeX) and `check_references`. Then ask your agent to "check the references in paper.tex".
+Parsing into CSL-JSON or BibTeX stays local: use the `citeparse` command or the Python API above.
 
 ## How good is it?
 
@@ -89,4 +91,3 @@ The models were trained on GROBID's citation corpus (Apache-2.0), with its evalu
 
 Apache-2.0 for the code and the models.
 
-<!-- mcp-name: io.github.un-seen/citeparse -->
