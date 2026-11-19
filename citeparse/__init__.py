@@ -13,7 +13,7 @@ import urllib.parse
 import urllib.request
 from difflib import SequenceMatcher
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 DEFAULT_MODEL = "hedwigai/citeparse-32m"
 
 CSL_KEY = {"TITLE": "title", "CONTAINER": "container-title", "PUBLISHER": "publisher", "LOCATION": "publisher-place",

@@ -4,16 +4,16 @@ build-backend = "hatchling.build"
 
 [project]
 name = "citeparse"
-version = "0.2.0"
+version = "0.2.1"
 description = "Parse reference strings into CSL-JSON or BibTeX with a small local model, and flag citations that point to no real work."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.9"
-dependencies = ["transformers>=4.48", "torch"]
+dependencies = ["transformers>=4.48", "torch", "mcp>=1.2"]
 keywords = ["citation", "reference parsing", "bibliography", "csl-json", "bibtex", "crossref", "grobid", "hallucinated citations", "fake references", "mcp"]
 
 [project.optional-dependencies]
-mcp = ["mcp>=1.2"]
+mcp = []  # kept so `citeparse[mcp]` still installs; the server now ships by default
 
 [project.scripts]
 citeparse = "citeparse.__main__:main"

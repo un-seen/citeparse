@@ -50,9 +50,10 @@ The command exits with status 1 when a reference is a mismatch or has an unregis
 ## Use it from an agent (MCP)
 
 ```bash
-pip install "citeparse[mcp]"
-claude mcp add citeparse -- citeparse-mcp
+claude mcp add citeparse -- uvx citeparse mcp
 ```
+
+Any MCP client works the same way: the command is `uvx citeparse mcp` (or `citeparse mcp` after `pip install citeparse`).
 
 The server offers two tools, `parse_references` (CSL-JSON or BibTeX) and `check_references`. Then ask your agent to "check the references in paper.tex".
 
@@ -87,3 +88,5 @@ The models were trained on GROBID's citation corpus (Apache-2.0), with its evalu
 ## License
 
 Apache-2.0 for the code and the models.
+
+<!-- mcp-name: io.github.un-seen/citeparse -->
