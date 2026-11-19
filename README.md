@@ -23,13 +23,15 @@ p.parse('K. He, X. Zhang, S. Ren, and J. Sun, "Deep residual learning for image 
 
 We scored it on 700 real references taken from Crossref. Each one cites a DOI, so the cited work's own Crossref record is the answer key. None of these DOIs were in our training data. We gave GROBID the same DOI rule that citeparse uses, so the DOI column is equal and the rest of the gap comes from the models.
 
-| Parser | All fields | References fully right | Title | Container | Volume | Issue | First page | DOI |
+| Parser | Fields right | References fully right | Title | Container | Volume | Issue | First page | DOI |
 |---|---|---|---|---|---|---|---|---|
 | GROBID 0.8.1 (CRF) | 0.911 | 71.1% | 0.882 | 0.805 | 0.908 | 0.803 | 0.953 | 0.994 |
 | citeparse-32m | 0.939 | 80.3% | 0.921 | 0.858 | 0.956 | 0.841 | 0.968 | 0.988 |
 | citeparse-150m | **0.952** | **83.4%** | **0.934** | **0.878** | **0.966** | **0.861** | **0.982** | **0.994** |
 
 GROBID still wins on its own held-out citations (0.943 against 0.890 for citeparse-150m). Those citations come from the same sources as GROBID's training data. We report both results.
+
+"Fields right" is the share of the 3,138 fields in the set that come out exactly right. A journal also counts as right when it matches its short title.
 
 Speed on CPU (8 threads): citeparse-32m parses about 118 references a second, and citeparse-150m about 20.
 
