@@ -66,7 +66,7 @@ We scored it on 700 real references taken from Crossref. Each one cites a DOI, s
 | citeparse-32m | 0.939 | 80.3% | 0.921 | 0.858 | 0.956 | 0.841 | 0.968 | 0.988 |
 | citeparse-150m | **0.952** | **83.4%** | **0.934** | **0.878** | **0.966** | **0.861** | **0.982** | **0.994** |
 
-GROBID still wins on its own held-out citations (0.943 against 0.890 for citeparse-150m). Those citations come from the same sources as GROBID's training data. We report both results.
+GROBID still wins on its own held-out citations (0.943 against 0.900 for citeparse-150m and 0.882 for citeparse-32m, all on GROBID's own scorer). Those citations come from the same sources as GROBID's training data. We report both results.
 
 "Fields right" is the share of the 3,138 fields in the set that come out exactly right. A journal also counts as right when it matches its short title.
 
