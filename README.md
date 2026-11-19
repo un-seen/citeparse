@@ -2,6 +2,8 @@
 
 citeparse turns reference strings into structured records. It reads one reference per line and writes CSL-JSON or BibTeX. A small local model does the work, so nothing leaves your machine unless you ask it to check a record against Crossref.
 
+**Try it in your browser:** [huggingface.co/spaces/hedwigai/citeparse](https://huggingface.co/spaces/hedwigai/citeparse). The model runs on the page, so nothing you paste is uploaded.
+
 ```bash
 pip install citeparse
 citeparse refs.txt            # CSL-JSON, one record per line
