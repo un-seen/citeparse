@@ -1,4 +1,5 @@
-"""citeparse refs.txt [--model hedwigai/citeparse-32m] [--verify] [--bibtex]  (one reference per line; '-' = stdin)"""
+"""citeparse refs.txt [--bibtex] [--verify]     parse one reference per line ('-' = stdin)
+citeparse check refs.txt [--json]             flag references that point to no real work"""
 import argparse, json, sys
 from . import Parser, verify, DEFAULT_MODEL
 
@@ -16,14 +17,38 @@ def bibtex(item, i):
     return f"@{typ}{{{fam}{year or ''}_{i},\n{body}\n}}"
 
 
+def _lines(path):
+    return [l.strip() for l in (sys.stdin if path == "-" else open(path, encoding="utf-8")) if l.strip()]
+
+
+def main_check(argv):
+    from .check import check, report
+    ap = argparse.ArgumentParser(prog="citeparse check", description="Flag references that point to no real work.")
+    ap.add_argument("file", help="one reference per line, or '-' for stdin")
+    ap.add_argument("--model", default=DEFAULT_MODEL)
+    ap.add_argument("--mailto", help="your email, sent to Crossref and OpenAlex so they can reach you")
+    ap.add_argument("--json", action="store_true", help="one JSON result per line")
+    a = ap.parse_args(argv)
+    lines = _lines(a.file)
+    res = check(Parser(a.model).parse(lines), lines, a.mailto)
+    if a.json:
+        for r in res:
+            print(json.dumps(r, ensure_ascii=False))
+    else:
+        print(report(res))
+    sys.exit(1 if any(r["verdict"] in ("mismatch", "bad_doi") for r in res) else 0)
+
+
 def main():
-    ap = argparse.ArgumentParser(prog="citeparse")
+    if len(sys.argv) > 1 and sys.argv[1] == "check":
+        return main_check(sys.argv[2:])
+    ap = argparse.ArgumentParser(prog="citeparse", epilog="To flag fake or wrong references: citeparse check refs.txt")
     ap.add_argument("file"); ap.add_argument("--model", default=DEFAULT_MODEL)
     ap.add_argument("--verify", action="store_true", help="look each reference up on Crossref")
     ap.add_argument("--mailto", help="your email, sent to Crossref's polite pool")
     ap.add_argument("--bibtex", action="store_true")
     a = ap.parse_args()
-    lines = [l.strip() for l in (sys.stdin if a.file == "-" else open(a.file, encoding="utf-8")) if l.strip()]
+    lines = _lines(a.file)
     items = Parser(a.model).parse(lines)
     for i, (raw, it) in enumerate(zip(lines, items)):
         if a.verify:
