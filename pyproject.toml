@@ -10,10 +10,10 @@ readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.9"
 dependencies = ["transformers>=4.48", "torch"]
+keywords = ["citation", "reference parsing", "bibliography", "csl-json", "bibtex", "crossref", "grobid", "hallucinated citations", "fake references", "mcp"]
 
 [project.optional-dependencies]
 mcp = ["mcp>=1.2"]
-keywords = ["citation", "reference parsing", "bibliography", "csl-json", "bibtex", "crossref", "grobid", "hallucinated citations", "fake references", "mcp"]
 
 [project.scripts]
 citeparse = "citeparse.__main__:main"
